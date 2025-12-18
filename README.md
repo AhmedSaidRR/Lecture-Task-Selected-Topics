@@ -1,5 +1,6 @@
 # Lecture-Task-Selected-Topics
 Case Study: Serverless ETL Design for Smart-Meter Data
+
 Task A: ETL Architecture Diagram (System Design)
 The following conceptual architecture describes a robust, serverless pipeline designed to transform "dark data" into actionable insights.
 
@@ -31,6 +32,7 @@ Analytics-Optimized Archive: Data is converted to Parquet format for high-perfor
 
 
 
+
 Task B: Transformation Logic & Business Rules
 To resolve the data quality issues , the following business rules are applied during the transformation phase:
 
@@ -51,6 +53,7 @@ Rule 3: Data Validation: Verify that the consumption value is non-negative and t
 
 
 Rule 4: Faulty Meter Detection: If a meter reports zero consumption for an unusually long period, mark the record as a "Potential Faulty Meter" for maintenance review.
+
 
 
 Task C: Single Record Lifecycle Explanation
