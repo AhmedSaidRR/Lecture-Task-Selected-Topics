@@ -2,6 +2,32 @@
 Case Study: Serverless ETL Design for Smart-Meter Data
 
 Task A: ETL Architecture Diagram (System Design)
+```mermaid
+graph LR
+    subgraph Source
+    A[Smart Meters] -->|CSV Upload| B[(Raw Storage S3)]
+    end
+
+    subgraph Transformation_Layer
+    B -->|Trigger| C(Serverless Function)
+    C -->|Validate & Clean| D{Success?}
+    end
+
+    subgraph Error_Handling
+    D -->|No| E[Retry Logic]
+    E -->|Fail x3| F[Dead Letter Queue DLQ]
+    end
+
+    subgraph Destinations
+    D -->|Yes| G[(Structured DB - RDS)]
+    D -->|Yes| H[(Archive - Parquet)]
+    end
+
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style F fill:#ff9999,stroke:#333,stroke-width:2px
+```
+
+
 The following conceptual architecture describes a robust, serverless pipeline designed to transform "dark data" into actionable insights.
 
 Source Layer:
@@ -33,6 +59,8 @@ Analytics-Optimized Archive: Data is converted to Parquet format for high-perfor
 
 
 
+
+
 Task B: Transformation Logic & Business Rules
 To resolve the data quality issues , the following business rules are applied during the transformation phase:
 
@@ -53,6 +81,8 @@ Rule 3: Data Validation: Verify that the consumption value is non-negative and t
 
 
 Rule 4: Faulty Meter Detection: If a meter reports zero consumption for an unusually long period, mark the record as a "Potential Faulty Meter" for maintenance review.
+
+
 
 
 
